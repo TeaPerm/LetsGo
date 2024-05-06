@@ -32,4 +32,17 @@ export const useShoppingCart = create<ShoppingCartState>((set) => ({
       return { ...state, cartProducts: updatedCartProducts };
     });
   },
+
+  clearCart: () => {
+    set((state) => {
+      // Clear cart products in state
+      const updatedCartProducts: Product[] = [];
+      
+      // Clear cart products in localStorage
+      localStorage.removeItem("cartProducts");
+
+      // Return the updated state with empty cart
+      return { ...state, cartProducts: updatedCartProducts };
+    });
+  }
 }));

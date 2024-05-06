@@ -33,3 +33,11 @@ export interface OrderData {
   orderLines: OrderLine[];
 }
 
+export interface ProductsResponse{
+  total: number;
+  page: number;
+  limit: number;
+  category: string[];
+  products: Product[];
+}
+

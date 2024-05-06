@@ -18,7 +18,7 @@ export const verifyToken = (req, res, next) => {
   }
 };
 
-export const verifyUser = async (req, res, next) => {
+export const verifyUserAndOrder = async (req, res, next) => {
   const tokenUserId = req.userId;
   const orderUserId = (
     await Order.findById(req.params.orderId).select("user_id")

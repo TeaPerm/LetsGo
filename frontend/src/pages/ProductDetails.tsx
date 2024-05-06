@@ -12,6 +12,7 @@ import { ShieldCheckIcon } from "@heroicons/react/24/outline";
 import { RadioGroup } from "@headlessui/react";
 import { useState } from "react";
 import AddToCartButton from "@/components/AddToCartButton";
+import ProductList from "@/components/ProductList";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -47,7 +48,7 @@ const ProductDetails = () => {
 
   const { productId } = useParams();
   const { data , isLoading } = useQuery({
-    queryKey: ["product"],
+    queryKey: ["product", productId],
     queryFn: async () => {
       const response = await fetch(API_URL + "/products/" + productId);
       const data: Product = await response.json();
@@ -55,15 +56,15 @@ const ProductDetails = () => {
     },
   });
 
-  const { price, name, image, createdAt, category, description } = data || {};
-
+  
   if (isLoading || !data) {
     return (
       <div className="mt-8 mb-12 mx-4 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
       </div>
     );
   }
-
+  
+  const { price, name, image, createdAt, category, description } = data || {};
   return (
       <div className="bg-background">
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-4 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
@@ -130,54 +131,6 @@ const ProductDetails = () => {
                 </p>
               </div>
               <div className="sm:flex sm:justify-between">
-                {/* Size selector */}
-                <RadioGroup value={selectedSize} onChange={setSelectedSize}>
-                  <RadioGroup.Label className="block text-sm font-medium text-gray-700">
-                    Size
-                  </RadioGroup.Label>
-                  <div className="mt-1 grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    {product.sizes.map((size) => (
-                      <RadioGroup.Option
-                        as="div"
-                        key={size.name}
-                        value={size}
-                        className={({ active }) =>
-                          classNames(
-                            active ? "ring-2 ring-indigo-500" : "",
-                            "relative block cursor-pointer rounded-lg border border-gray-300 p-4 focus:outline-none"
-                          )
-                        }
-                      >
-                        {({ active, checked }) => (
-                          <>
-                            <RadioGroup.Label
-                              as="p"
-                              className="text-base font-medium text-gray-900"
-                            >
-                              {size.name}
-                            </RadioGroup.Label>
-                            <RadioGroup.Description
-                              as="p"
-                              className="mt-1 text-sm text-gray-500"
-                            >
-                              {size.description}
-                            </RadioGroup.Description>
-                            <div
-                              className={classNames(
-                                active ? "border" : "border-2",
-                                checked
-                                  ? "border-indigo-500"
-                                  : "border-transparent",
-                                "pointer-events-none absolute -inset-px rounded-lg"
-                              )}
-                              aria-hidden="true"
-                            />
-                          </>
-                        )}
-                      </RadioGroup.Option>
-                    ))}
-                  </div>
-                </RadioGroup>
               </div>
             </section>
           </div>
@@ -198,18 +151,8 @@ const ProductDetails = () => {
               <h2 id="options-heading" className="sr-only">
                 Product options
               </h2>
-
-              <form>
                 <div className="mt-4">
-                  <div
-                    className="group inline-flex text-sm text-muted-foreground hover:text-gray-700"
-                  >
-                    <span>What size should I buy?</span>
-                    <QuestionMarkCircleIcon
-                      className="ml-2 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-muted-foreground"
-                      aria-hidden="true"
-                    />
-                  </div>
+                
                 </div>
                 <div className="mt-10">
                   <AddToCartButton product={data} />
@@ -228,10 +171,10 @@ const ProductDetails = () => {
                     </span>
                   </a>
                 </div>
-              </form>
             </section>
           </div>
         </div>
+        <ProductList currentProductId={productId} category={category}/>
       </div>
   );
 };

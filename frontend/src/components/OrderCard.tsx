@@ -5,12 +5,14 @@ import { convertDate, formatPriceForints } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
+import { Ring } from "@uiball/loaders";
 
 const OrderCard: React.FC<{
   orderData: { order: Order; orderLines: OrderLine[] };
 }> = ({ orderData }) => {
+
   if (!orderData) {
-    return <div>Loading...</div>;
+    return 
   }
 
   const { order, orderLines } = orderData;
@@ -20,7 +22,9 @@ const OrderCard: React.FC<{
         <dl className="grid flex-1 grid-cols-2 gap-x-6 text-sm sm:col-span-3 sm:grid-cols-3 lg:col-span-2">
           <div>
             <dt className="font-medium">Order number</dt>
-            <dd className="mt-1 overflow-auto text-foreground/80">{order._id}</dd>
+            <dd className="mt-1 overflow-auto text-foreground/80">
+              {order._id}
+            </dd>
           </div>
           <div className="">
             <dt className="font-medium">Date placed</dt>
@@ -43,8 +47,8 @@ const OrderCard: React.FC<{
       {/* Products */}
       <h4 className="sr-only">Items</h4>
       <ul role="list" className="">
-        {orderLines.map(({ product_id: product, quantity }) => (
-          <React.Fragment key={product._id}>
+        {orderLines.map(({ product_id: product, quantity }, index) => (
+          <React.Fragment key={index}>
             <li className="p-4 sm:p-6">
               <div className="flex items-center sm:items-start">
                 <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg  sm:h-40 sm:w-40">
@@ -88,7 +92,7 @@ const OrderCard: React.FC<{
 
                 <div className="mt-6 flex items-center space-x-4 divide-x divide-gray-200 border-t border-gray-200 pt-4 text-sm font-medium sm:ml-4 sm:mt-0 sm:border-none sm:pt-0">
                   <div className="flex flex-1 justify-center">
-                    <Button>
+                    <Button asChild>
                       <Link
                         to={`/products/${product._id}`}
                         className="whitespace-nowrap"

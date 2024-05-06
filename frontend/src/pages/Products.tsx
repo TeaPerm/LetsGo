@@ -60,7 +60,7 @@ const Products = () => {
     );
   }
 
-  console.log(data.count);
+  console.log(data.total);
 
   const handleCheckedChange = (type: string) => (isChecked: boolean) => {
     if (isChecked) {
@@ -127,7 +127,7 @@ const Products = () => {
         ))}
       </div>
       <div className="my-8">
-        <ProductPagination count={data.count} />
+        <ProductPagination count={data.total} />
       </div>
     </div>
   );

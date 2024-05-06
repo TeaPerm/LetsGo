@@ -12,6 +12,8 @@ import BaseLayout from "./components/Layouts/BaseLayout.tsx";
 import { ProductCreate } from "./pages/ProductCreate.tsx";
 import UserOrders from "./pages/UserOrders.tsx";
 import ProductEdit from "./pages/ProductEdit.tsx";
+import OrderSuccess from "./pages/OrderSuccess.tsx";
+import Products from "./pages/Products.tsx";
 
 const queryClient = new QueryClient();
 
@@ -36,7 +38,7 @@ const router = createBrowserRouter([
     path: "/products",
     element: (
       <BaseLayout>
-        <AdminProducts />
+        <Products />
       </BaseLayout>
     ),
   },
@@ -45,6 +47,14 @@ const router = createBrowserRouter([
     element: (
       <BaseLayout>
         <UserOrders />
+      </BaseLayout>
+    ),
+  },
+  {
+    path: "/success",
+    element: (
+      <BaseLayout>
+        <OrderSuccess />
       </BaseLayout>
     ),
   },

@@ -10,7 +10,7 @@ const usersRouter = express.Router();
 usersRouter.get("/", verifyToken, userController.getUser);
 usersRouter.post("/register", validateUserData, userController.register);
 usersRouter.post("/login", validateUserData, userController.login);
-usersRouter.get("/orders", verifyToken, orderController.getUserOrder);
+usersRouter.get("/orders", verifyToken,  orderController.getUserOrder);
 
 
 export default usersRouter;

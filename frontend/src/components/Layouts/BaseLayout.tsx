@@ -60,29 +60,17 @@ export default function BaseLayout({
             Dashboard
           </Link>
           <Link
-            to="/orders"
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Orders
-          </Link>
-          <Link
             to="/products"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
             Products
           </Link>
-          <a
-            href="#"
+          <Link
+            to="/orders"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
-            Customers
-          </a>
-          <a
-            href="#"
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Analytics
-          </a>
+            Orders
+          </Link>
         </nav>
         <Sheet>
           <SheetTrigger asChild>
