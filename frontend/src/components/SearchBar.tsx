@@ -1,5 +1,5 @@
 import { Search } from "lucide-react";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Input } from "./ui/input";
 import { useQuery } from "@tanstack/react-query";
 import { API_URL } from "@/lib/utils";
@@ -22,8 +22,6 @@ const SearchBar = () => {
     },
     enabled: debouncedSearchInput.length >= 3,
   });
-
-  console.log(data);
 
   const handleOnChange = (input: string) => {
     setSearchInput(input);

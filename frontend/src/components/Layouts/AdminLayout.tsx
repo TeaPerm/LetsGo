@@ -49,30 +49,18 @@ export default function AdminLayout({
           >
             Dashboard
           </Link>
-          <a
-            href="#"
+          <Link
+            to="/orders"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
             Orders
-          </a>
+          </Link>
           <Link
             to="/products"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
             Products
           </Link>
-          <a
-            href="#"
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Customers
-          </a>
-          <a
-            href="#"
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Analytics
-          </a>
         </nav>
         <Sheet>
           <SheetTrigger asChild>

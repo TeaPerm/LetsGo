@@ -1,12 +1,19 @@
 import { API_URL } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
-import Example from "@/components/Example";
 import { OrderData } from "@/lib/types";
-import { CheckCircleIcon } from "lucide-react";
 import OrderCard from "@/components/OrderCard";
 import Loading from "@/components/Loading";
+import { useUser } from "@/hooks/useUser";
+import AdminOrders from "./AdminOrders";
 
 const UserOrders = () => {
+
+  const user = useUser()
+
+  if(user?.is_admin){
+    return <AdminOrders/>
+  }
+
   const { data, isLoading } = useQuery<[OrderData]>({
     queryKey: ["userOrder"],
     queryFn: async () => {
@@ -22,8 +29,6 @@ const UserOrders = () => {
       return data;
     },
   });
-
-  console.log(data);
 
   if (isLoading || !data) {
     return <Loading/>;

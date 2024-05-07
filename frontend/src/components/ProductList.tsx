@@ -2,6 +2,7 @@ import { ProductsResponse } from "@/lib/types";
 import { API_URL, formatPriceForints } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
+import Loading from "./Loading";
 
 export default function ProductList({
   category,
@@ -21,10 +22,8 @@ export default function ProductList({
   });
 
   if (isLoading || !data) {
-    return <>loading...</>;
+    return <Loading />;
   }
-
-  console.log(data);
 
   const { products } = data;
 
@@ -37,7 +36,7 @@ export default function ProductList({
           </h2>
           <Link
             to={`/products/?category=${category}`}
-            className="hidden text-sm font-medium md:block"
+            className="hidden text-sm font-medium md:block hover:text-foreground/80"
           >
             Shop the category
             <span aria-hidden="true"> &rarr;</span>
@@ -45,7 +44,7 @@ export default function ProductList({
         </div>
 
         <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 md:gap-y-0 lg:gap-x-8">
-          {products.map(
+          {products.slice(0, 4).map(
             (product) =>
               product._id !== currentProductId && (
                 <div key={product._id} className="group relative">

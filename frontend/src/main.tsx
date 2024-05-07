@@ -14,6 +14,7 @@ import UserOrders from "./pages/UserOrders.tsx";
 import ProductEdit from "./pages/ProductEdit.tsx";
 import OrderSuccess from "./pages/OrderSuccess.tsx";
 import Products from "./pages/Products.tsx";
+import Register from "./pages/Register.tsx";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,14 @@ const router = createBrowserRouter([
     element: (
       <BaseLayout>
         <Login />
+      </BaseLayout>
+    ),
+  },
+  {
+    path: "/register",
+    element: (
+      <BaseLayout>
+        <Register />
       </BaseLayout>
     ),
   },

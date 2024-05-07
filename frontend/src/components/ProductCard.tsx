@@ -10,10 +10,12 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
     <div>
       <div className="relative">
         <div className="relative h-72 w-full overflow-hidden rounded-lg">
+          <Link to={`/products/${_id}`}>
           <img
             src={image}
-            className="h-full w-full object-cover object-center"
-          />
+            className="h-full transition-all duration-300 hover:scale-95 w-full object-contain object-center"
+            />
+            </Link>
         </div>
         <div className="relative mt-4">
           <Link to={`/products/${_id}`}>
@@ -23,15 +25,8 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
           </Link>
           <div className="flex justify-between">
             <span className="mt-1 text-sm text-gray-500">{category} </span>
-            <span> {convertDate(createdAt)}</span>
+            <p className="relative text-lg font-semibold text-white">{formatPriceForints(price)}</p>
           </div>
-        </div>
-        <div className="absolute inset-x-0 top-0 flex h-72 items-end justify-end overflow-hidden rounded-lg p-4">
-          <div
-            aria-hidden="true"
-            className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black opacity-50"
-          />
-          <p className="relative text-lg font-semibold text-white">{formatPriceForints(price)}</p>
         </div>
       </div>
       <div className="mt-6">
