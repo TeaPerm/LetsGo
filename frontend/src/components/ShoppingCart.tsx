@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { ToyBrick } from "lucide-react";
 import { Button } from "./ui/button";
@@ -6,12 +6,15 @@ import { Product } from "@/lib/types";
 import { API_URL, formatPriceForints } from "@/lib/utils";
 import { useMutation } from "@tanstack/react-query";
 import { useShoppingCart } from "@/hooks/useShoppingCart";
+import { LoadableButton } from "./LoadableButton";
 
 const ShoppingCart = () => {
   const { removeProductFromCart, cartProducts } = useShoppingCart();
+  const [isLoading, setIsLoading] = useState(false);
 
   const proceedCheckout = useMutation({
     mutationFn: async (cartProducts: Product[]) => {
+      setIsLoading(true);
       const requestData = cartProducts.map(({ _id }) => ({
         product_id: _id,
         quantity: 1,
@@ -37,7 +40,7 @@ const ShoppingCart = () => {
   });
 
   return (
-    <Popover className="ml-4 flow-root text-sm lg:relative lg:ml-8">
+    <Popover className="flow-root text-sm lg:relative">
       <Popover.Button>
         <Button variant="outline" className="w-12" size="icon" asChild>
           <div>
@@ -97,13 +100,14 @@ const ShoppingCart = () => {
 
           {cartProducts.length !== 0 && (
             <>
-              <Button
+              <LoadableButton
+                loading={isLoading}
                 type="submit"
                 className="w-full"
                 onClick={() => proceedCheckout.mutate(cartProducts)}
               >
                 Checkout
-              </Button>
+              </LoadableButton>
 
               <p className="mt-6 text-center">
                 <a

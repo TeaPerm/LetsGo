@@ -32,9 +32,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import CustomFormField from "@/components/CustomFormField";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Product } from "@/lib/types";
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -53,6 +54,7 @@ interface FormSchema {
 }
 
 export function ProductCreate() {
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -101,20 +103,19 @@ export function ProductCreate() {
             <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
               <div className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4">
                 <div className="flex items-center gap-4">
-                  <Button variant="outline" size="icon" className="h-7 w-7">
+                  <Button variant="outline" size="icon" className="h-7 w-7" asChild>
+                    <Link to="/products">
                     <ChevronLeft className="h-4 w-4" />
                     <span className="sr-only">Back</span>
+                    </Link>
                   </Button>
                   <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
-                    Pro Controller
+                    Create a new Lego set
                   </h1>
                   <Badge variant="outline" className="ml-auto sm:ml-0">
                     In stock
                   </Badge>
                   <div className="hidden items-center gap-2 md:ml-auto md:flex">
-                    <Button variant="outline" size="sm">
-                      Discard
-                    </Button>
                     <Button size="sm" type="submit">
                       Save Product
                     </Button>

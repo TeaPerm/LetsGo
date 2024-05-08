@@ -50,16 +50,16 @@ export default function AdminLayout({
             Dashboard
           </Link>
           <Link
-            to="/orders"
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Orders
-          </Link>
-          <Link
             to="/products"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
             Products
+          </Link>
+          <Link
+            to="/orders"
+            className="text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Orders
           </Link>
         </nav>
         <Sheet>
@@ -141,6 +141,7 @@ export default function AdminLayout({
                 <DropdownMenuItem asChild>
                   <Link
                     to="/"
+                    className="cursor-pointer"
                     onClick={handleLogout}
                   >
                     Logout

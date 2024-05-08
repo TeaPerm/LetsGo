@@ -3,9 +3,6 @@ import { Product } from "../model/Product.js";
 import { validateAndParseObjectId } from "../utils/helpers.js";
 import { productCategoryTypes } from "../utils/constants.js";
 
-// const zodProductCategoryTypes = z.enum(productCategoryTypes);
-// console.log(zodProductCategoryTypes.parse("Star Wars"))
-
 const productSchema = z
   .object({
     name: z.string().min(1),
@@ -23,7 +20,7 @@ export const validateProductId = async (req, res, next) => {
       return res.status(404).json({ message: "Not valid product ID" });
     }
 
-    const product = await Product.findById(id);
+    const product = await Product.findById(id).select("-__v -stripeProductId -stripePriceId");
 
     if (!product) {
       return res.status(404).json({ message: "No product found with this ID" });

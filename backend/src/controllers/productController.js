@@ -2,7 +2,7 @@ import Stripe from "stripe";
 import { Product } from "../model/Product.js";
 import mongoose from "mongoose";
 import { productCategoryTypes } from "../utils/constants.js";
-// import dotenv from "dotenv";
+import { createStripePrice, createStripeProduct } from "../utils/stripe.js";
 
 export const productController = {
   getProducts: async (req, res) => {
@@ -10,7 +10,7 @@ export const productController = {
       const page = parseInt(req.query.page) - 1 || 0;
       const limit = parseInt(req.query.limit) || 0;
       const search = req.query.search || "";
-      let sort = req.query.sort || "price";
+      let sort = req.query.sort || "createdAt_desc";
       let categories = req.query.category || "All";
 
       if (categories === "All") {
@@ -21,10 +21,10 @@ export const productController = {
 
       let sortBy = {};
 
-      if(req.query.sort){
-        sort = req.query.sort.split(",")
-      }else{
-        sort = [sort]
+      if (req.query.sort) {
+        sort = req.query.sort.split(",");
+      } else {
+        sort = [sort];
       }
 
       if (sort[1]) {
@@ -34,9 +34,9 @@ export const productController = {
       }
 
       const total = await Product.countDocuments({
-        category: {$in : [...categories]},
-        name: {$regex: search, $options: "i"}
-      })
+        category: { $in: [...categories] },
+        name: { $regex: search, $options: "i" },
+      });
 
       const products = await Product.find({
         name: { $regex: search, $options: "i" },
@@ -45,15 +45,16 @@ export const productController = {
         .in([...categories])
         .sort(sortBy)
         .skip(page * limit)
-        .limit(limit);
+        .limit(limit)
+        .select("-__v -stripeProductId -stripePriceId");
 
       const response = {
         total,
-        page: page+1,
+        page: page + 1,
         limit,
         category: categories,
-        products
-      }
+        products,
+      };
 
       res.status(200).json(response);
     } catch (err) {
@@ -146,47 +147,4 @@ export const productController = {
       res.status(500).json({ error: err.message });
     }
   },
-};
-
-const createStripeProduct = async (productName, imageURL, stripe) => {
-  try {
-    // Create a product on Stripe
-    const productStripe = await stripe.products.create({
-      name: productName,
-      images: [imageURL],
-      active: true,
-    });
-
-    return productStripe.id;
-  } catch (error) {
-    // Handle errors during Stripe or Supabase operations
-    console.error(error);
-    return null;
-  }
-};
-
-const createStripePrice = async (
-  productId,
-  stripeProductId,
-  productPrice,
-  stripe
-) => {
-  try {
-    // Create a product on Stripe
-    const stripePrice = await stripe.prices.create({
-      unit_amount: parseInt(productPrice) * 100, // Stripe prices are in cents
-      currency: "huf", // Hungarian Forint
-      product: stripeProductId,
-      active: true,
-      metadata: {
-        product_id: productId,
-      },
-    });
-
-    return stripePrice.id;
-  } catch (error) {
-    // Handle errors during Stripe
-    console.error(error);
-    return null;
-  }
 };

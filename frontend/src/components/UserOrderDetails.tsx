@@ -31,13 +31,15 @@ import {
 import { Separator } from "@/components/ui/separator";
 import React from "react";
 import { Order, OrderData, OrderLine } from "@/lib/types";
-import { convertDate } from "@/lib/utils";
+import { convertDate, formatPriceForints } from "@/lib/utils";
+import Loading from "./Loading";
 
 export const UserOrderDetails: React.FC<{
   orderData: { order: Order; orderLines: OrderLine[] };
 }> = ({ orderData }) => {
+  
   if (!orderData) {
-    return <div>Loading...</div>; // Or any other appropriate loading indicator
+    return <Loading/>;
   }
 
   const { order, orderLines } = orderData;
@@ -62,68 +64,31 @@ export const UserOrderDetails: React.FC<{
             Date: {convertDate(order.createdAt)}
           </CardDescription>
         </div>
-        <div className="ml-auto flex items-center gap-1">
-          <Button size="sm" variant="outline" className="h-8 gap-1">
-            <Truck className="h-3.5 w-3.5" />
-            <span className="lg:sr-only xl:not-sr-only xl:whitespace-nowrap">
-              Track Order
-            </span>
-          </Button>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button size="icon" variant="outline" className="h-8 w-8">
-                <MoreVertical className="h-3.5 w-3.5" />
-                <span className="sr-only">More</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem>Edit</DropdownMenuItem>
-              <DropdownMenuItem>Export</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Trash</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
       </CardHeader>
       <CardContent className="p-6 text-sm">
         <div className="grid gap-3">
           <div className="font-semibold">Order Details</div>
           <ul className="grid gap-3">
-            {orderLines.map(({product_id : product, quantity   } , index) => (
+            {orderLines.map(({ product_id: product, quantity }, index) => (
               <li className="flex items-center justify-between" key={index}>
                 <img src={product.image} className="w-14 h-14"></img>
                 <span className="text-muted-foreground">
-                  {product.name} x{" "}
-                  <span>{quantity}</span>
+                  {product.name} x <span>{quantity}</span>
                 </span>
-                <span>$250.00</span>
+                <span>{formatPriceForints(product.price)}</span>
               </li>
             ))}
           </ul>
           <Separator className="my-2" />
-          <ul className="grid gap-3">
-            <li className="flex items-center justify-between">
-              <span className="text-muted-foreground">Subtotal</span>
-              <span>$299.00</span>
-            </li>
-            <li className="flex items-center justify-between">
-              <span className="text-muted-foreground">Shipping</span>
-              <span>$5.00</span>
-            </li>
-            <li className="flex items-center justify-between">
-              <span className="text-muted-foreground">Tax</span>
-              <span>$25.00</span>
-            </li>
             <li className="flex items-center justify-between font-semibold">
               <span className="text-muted-foreground">Total</span>
-              <span>$329.00</span>
+              <span>{formatPriceForints(order.total)}</span>
             </li>
-          </ul>
         </div>
         <Separator className="my-4" />
         <div className="grid grid-cols-2 gap-4">
           <div className="grid gap-3">
-            <div className="font-semibold">Shipping Information</div>
+            <div className="font-semibold">Customer Information</div>
             <address className="grid gap-0.5 not-italic text-muted-foreground">
               <span>Liam Johnson</span>
               <span>1234 Main St.</span>
@@ -153,24 +118,8 @@ export const UserOrderDetails: React.FC<{
       </CardContent>
       <CardFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3">
         <div className="text-xs text-muted-foreground">
-          Updated <time dateTime="2023-11-23">November 23, 2023</time>
+          Created at {convertDate(order.createdAt.toString())}
         </div>
-        <Pagination className="ml-auto mr-0 w-auto">
-          <PaginationContent>
-            <PaginationItem>
-              <Button size="icon" variant="outline" className="h-6 w-6">
-                <ChevronLeft className="h-3.5 w-3.5" />
-                <span className="sr-only">Previous Order</span>
-              </Button>
-            </PaginationItem>
-            <PaginationItem>
-              <Button size="icon" variant="outline" className="h-6 w-6">
-                <ChevronRight className="h-3.5 w-3.5" />
-                <span className="sr-only">Next Order</span>
-              </Button>
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
       </CardFooter>
     </Card>
   );

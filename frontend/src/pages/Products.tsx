@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { ProductPagination } from "@/components/ProductPagination";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const Products = () => {
   const [searchParams, setSearchParams] = useSearchParams({
@@ -22,6 +22,7 @@ const Products = () => {
   });
 
   const user = useUser();
+  const navigate = useNavigate()
 
   if (user?.is_admin) {
     return <AdminProducts />;
@@ -59,8 +60,6 @@ const Products = () => {
       </div>
     );
   }
-
-  console.log(data.total);
 
   const handleCheckedChange = (type: string) => (isChecked: boolean) => {
     if (isChecked) {

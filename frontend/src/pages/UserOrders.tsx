@@ -7,11 +7,10 @@ import { useUser } from "@/hooks/useUser";
 import AdminOrders from "./AdminOrders";
 
 const UserOrders = () => {
+  const user = useUser();
 
-  const user = useUser()
-
-  if(user?.is_admin){
-    return <AdminOrders/>
+  if (user?.is_admin) {
+    return <AdminOrders />;
   }
 
   const { data, isLoading } = useQuery<[OrderData]>({
@@ -26,12 +25,12 @@ const UserOrders = () => {
         },
       });
       const data = await response.json();
-      return data;
+      return data.reverse();
     },
   });
 
   if (isLoading || !data) {
-    return <Loading/>;
+    return <Loading />;
   }
 
   return (
@@ -53,7 +52,9 @@ const UserOrders = () => {
           <h2 className="sr-only">Recent orders</h2>
           <div className="mx-auto max-w-7xl sm:px-2 lg:px-8">
             <div className="mx-auto max-w-2xl space-y-8 sm:px-4 lg:max-w-4xl lg:px-0">
-              {data.map((order) => <OrderCard orderData={order} key={order.order._id}/>)}
+              {data.map((order) => (
+                <OrderCard orderData={order} key={order.order._id} />
+              ))}
             </div>
           </div>
         </div>

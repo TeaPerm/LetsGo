@@ -1,16 +1,11 @@
 import { z } from "zod";
 import { validateAndParseObjectId } from "../utils/helpers.js";
-import { Types } from "mongoose";
 import { Product } from "../model/Product.js";
 import { Order } from "../model/Order.js";
-import { User } from "../model/User.js";
-import Stripe from "stripe";
-const { ObjectId } = Types;
 
 const orderSchema = z
   .object({
     product_id: z.string(),
-    //   .map((productId) => new validateAndParseObjectId(productId)),
     quantity: z.number().int().positive(),
   })
   .strict()
@@ -76,39 +71,5 @@ export const validateOrderId = async (req, res, next) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
-  }
-};
-
-export const constructOrderDetailsFromStripe = async (req, res, next) => {
-  if (req.stripeEvent.type === "checkout.session.completed") {
-    const checkoutSessionCompleted = req.stripeEvent.data.object;
-
-    const stripe = Stripe(process.env.STRIPE_PRIVATE_KEY);
-    try {
-      const sessionWithLineItems = await stripe.checkout.sessions.retrieve(
-        checkoutSessionCompleted.id,
-        {
-          expand: ["line_items"],
-        }
-      );
-
-      const lineItems = sessionWithLineItems.line_items.data.map((lineItem) => {
-        return {
-          product_id: lineItem.price.metadata.product_id,
-          quantity: lineItem.quantity,
-        };
-      });
-
-      req.userId = checkoutSessionCompleted.metadata.user_id;
-      req.body = lineItems;
-      next();
-    } catch (err) {
-      console.log(err);
-      res.status(500).json({ error: err });
-    }
-  } else {
-    res
-      .status(400)
-      .json({ error: `Unhandled event type ${req.stripeEvent.type}` });
   }
 };

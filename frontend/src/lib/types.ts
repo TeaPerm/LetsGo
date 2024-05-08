@@ -24,7 +24,8 @@ export interface OrderLine {
 
 export interface Order {
   _id: string;
-  user_id: string;
+  user_id: User;
+  total: number;
   createdAt: string;
 }
 

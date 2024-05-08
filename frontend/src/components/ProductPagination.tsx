@@ -5,6 +5,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { useScrollToTop } from "@/hooks/useScrollToTop";
 import { useSearchParams } from "react-router-dom";
 
 interface ProductPaginationProps {
@@ -32,6 +33,7 @@ export function ProductPagination({ count }: ProductPaginationProps) {
             onClick={() => {
               searchParams.set("page", (currentPage - 1).toString());
               setSearchParams(searchParams, { replace: true });
+              window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
           />
           <PaginationNext
@@ -43,6 +45,7 @@ export function ProductPagination({ count }: ProductPaginationProps) {
             onClick={() => {
               searchParams.set("page", (currentPage + 1).toString());
               setSearchParams(searchParams, { replace: true });
+              window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
           />
         </PaginationItem>

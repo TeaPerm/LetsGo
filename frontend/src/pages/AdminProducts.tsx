@@ -59,34 +59,31 @@ export default function AdminProducts() {
     },
   });
 
-
-  if(!data || isLoading){
-    return <Loading/>
+  if (!data || isLoading) {
+    return <Loading />;
   }
 
-  const {products} = data
+  const { products } = data;
 
   return (
     <Tabs defaultValue="all" className="p-8">
       <div className="flex items-center">
-        <div className="ml-auto flex items-center gap-2">
-        </div>
+        <div className="ml-auto flex items-center gap-2"></div>
       </div>
       <TabsContent value="all">
         <Card x-chunk="dashboard-06-chunk-0">
           <CardHeader>
-          <div className="flex justify-between">
-
-            <CardTitle>Products</CardTitle>
-          <Button size="sm" className="h-7 gap-1" asChild>
-            <Link to="/products/create">
-              <PlusCircle className="h-3.5 w-3.5" />
-              <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                Add Product
-              </span>
-            </Link>
-          </Button>
-          </div>
+            <div className="flex justify-between">
+              <CardTitle>Products</CardTitle>
+              <Button size="sm" className="h-7 gap-1" asChild>
+                <Link to="/products/create">
+                  <PlusCircle className="h-3.5 w-3.5" />
+                  <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                    Add Product
+                  </span>
+                </Link>
+              </Button>
+            </div>
             <CardDescription>
               Manage your products and view their sales performance.
             </CardDescription>
@@ -110,59 +107,68 @@ export default function AdminProducts() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {
-                  products.map((product) => (
-                    <TableRow key={product._id}>
-                      <TableCell className="hidden sm:table-cell">
-                        <img
-                          alt="Product image"
-                          className="aspect-square rounded-md object-cover"
-                          height="64"
-                          src={product.image}
-                          width="64"
-                        />
-                      </TableCell>
-                      <TableCell className="font-medium">
-                        {product.name}
-                      </TableCell>
-                      <TableCell>
-                        <Badge variant="outline">{product.category}</Badge>
-                      </TableCell>
-                      <TableCell>{formatPriceForints(product.price)}</TableCell>
-                      <TableCell className="hidden md:table-cell">
-                        {convertDate(product.createdAt.toString())}
-                      </TableCell>
-                      <TableCell>
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
+                {products.map((product) => (
+                  <TableRow key={product._id}>
+                    <TableCell className="hidden sm:table-cell">
+                      <img
+                        alt="Product image"
+                        className="aspect-square rounded-md object-cover"
+                        height="64"
+                        src={product.image}
+                        width="64"
+                      />
+                    </TableCell>
+                    <TableCell className="font-medium">
+                      {product.name}
+                    </TableCell>
+                    <TableCell>
+                      <Badge variant="outline">{product.category}</Badge>
+                    </TableCell>
+                    <TableCell>{formatPriceForints(product.price)}</TableCell>
+                    <TableCell className="hidden md:table-cell">
+                      {convertDate(product.createdAt.toString())}
+                    </TableCell>
+                    <TableCell>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button
+                            aria-haspopup="true"
+                            size="icon"
+                            variant="ghost"
+                          >
+                            <MoreHorizontal className="h-4 w-4" />
+                            <span className="sr-only">Toggle menu</span>
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                          <DropdownMenuItem asChild>
                             <Button
-                              aria-haspopup="true"
-                              size="icon"
+                              className="w-full justify-start cursor-pointer"
                               variant="ghost"
+                              asChild
                             >
-                              <MoreHorizontal className="h-4 w-4" />
-                              <span className="sr-only">Toggle menu</span>
+                              <Link to={`/products/${product._id}/edit`}>
+                              Edit
+                              </Link>
                             </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end">
-                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                            <DropdownMenuItem>Edit</DropdownMenuItem>
-                            <DropdownMenuItem asChild>
-                              <Button
-                                className="w-full justify-start cursor-pointer text-red-500 hover:text-red-500/80"
-                                variant="ghost"
-                                onClick={() =>
-                                  productDeleteMutation.mutate(product._id)
-                                }
-                              >
-                                Delete
-                              </Button>
-                            </DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                          </DropdownMenuItem>
+                          <DropdownMenuItem asChild>
+                            <Button
+                              className="w-full justify-start cursor-pointer text-red-500 hover:text-red-500/80"
+                              variant="ghost"
+                              onClick={() =>
+                                productDeleteMutation.mutate(product._id)
+                              }
+                            >
+                              Delete
+                            </Button>
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TableCell>
+                  </TableRow>
+                ))}
               </TableBody>
             </Table>
             {isLoading && (

@@ -1,7 +1,6 @@
 import jwt from "jsonwebtoken";
 import { Order } from "../model/Order.js";
 import { User } from "../model/User.js";
-import Stripe from "stripe";
 
 export const verifyToken = (req, res, next) => {
   const secretKey = process.env.JWT_SECRET_KEY;
@@ -19,50 +18,36 @@ export const verifyToken = (req, res, next) => {
 };
 
 export const verifyUserAndOrder = async (req, res, next) => {
-  const tokenUserId = req.userId;
-  const orderUserId = (
-    await Order.findById(req.params.orderId).select("user_id")
-  ).user_id.toString();
-  // const orderUserId = (await Order.findById(req.params.orderId)).user_id.toString();
+  try {
+    const tokenUserId = req.userId;
+    const orderUserId = (
+      await Order.findById(req.params.orderId).select("user_id")
+    ).user_id.toString();
 
-  console.log("token", tokenUserId);
-  console.log("order", orderUserId);
+    const isUserAdmin = await User.findById(tokenUserId).select("is_admin");
 
-  if (orderUserId !== tokenUserId) {
-    return res.status(401).json({ error: "Unauthorized action!" });
+    if (orderUserId !== tokenUserId && !isUserAdmin) {
+      return res.status(401).json({ error: "Unauthorized action!" });
+    }
+
+    next();
+  } catch (err) {
+    return res.status(500).json(err);
   }
-
-  next();
 };
 
 export const verifyAdmin = async (req, res, next) => {
-  const tokenUserId = req.userId;
-
-
-  const user = await User.findById(tokenUserId);
-
-  if (!user.is_admin) {
-    return res.status(403).json({ error: "Unauthenticated action!" });
-  }
-
-  next();
-};
-
-export const verifyStripe = async (req, res, next) => {
-  const stripe = Stripe(process.env.STRIPE_PRIVATE_KEY);
-  const sig = req.headers["stripe-signature"];
-  let event;
   try {
-    event = stripe.webhooks.constructEvent(
-      req.body,
-      sig,
-      process.env.STRIPE_WEBHOOK_SECRET
-    );
+    const tokenUserId = req.userId;
 
-    req.stripeEvent = event;
+    const user = await User.findById(tokenUserId);
+
+    if (!user.is_admin) {
+      return res.status(403).json({ error: "Unauthenticated action!" });
+    }
+
     next();
   } catch (err) {
-    console.log(err);
-    return res.status(400).send(`Webhook Error: ${err.message}`);
+    return res.status(500).json(err);
   }
 };

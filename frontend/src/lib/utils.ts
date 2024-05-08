@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
-import { Product } from "./types";
+import { OrderData, Product } from "./types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -51,3 +51,13 @@ export const productCategoryTypes : string[] = [
   "Ideas",
 ];
 
+export function calculateTotalOrders(orders: OrderData[]): number {
+  if(!orders){
+    return 0;
+  }
+  let total: number = 0;
+  for (const orderData of orders) {
+      total += orderData.order.total;
+  }
+  return total;
+}

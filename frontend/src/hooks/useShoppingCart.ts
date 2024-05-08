@@ -5,6 +5,7 @@ interface ShoppingCartState {
   cartProducts: Product[];
   addProductToCart: (product: Product) => void;
   removeProductFromCart: (productId: Product["_id"]) => void;
+  clearCart: () => void
 }
 
 export const useShoppingCart = create<ShoppingCartState>((set) => ({

@@ -8,7 +8,6 @@ const ordersRouter = express.Router();
 ordersRouter.get("/", verifyToken, verifyAdmin, orderController.getOrders);
 ordersRouter.post("/checkout", verifyToken, parseOrderLines, validateProductIds, orderController.checkout);
 ordersRouter.get("/:orderId", verifyToken, validateOrderId, verifyUserAndOrder, orderController.getOrder);
-// ordersRouter.post("/", express.raw({type: 'application/json'}), verifyStripe, constructOrderDetailsFromStripe, parseOrderLines, validateProductIds, orderController.createOrder);
-
+ordersRouter.delete("/:orderId", verifyToken, validateOrderId, verifyUserAndOrder, orderController.deleteOrder);
 
 export default ordersRouter;
