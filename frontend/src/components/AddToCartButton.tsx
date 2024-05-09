@@ -11,7 +11,7 @@ interface AddToCartButtonProps {
 }
 
 const AddToCartButton: React.FC<AddToCartButtonProps> = ({ product }) => {
-  const { addProductToCart } = useShoppingCart();
+  const { addProductToCart , setIsOpen , isOpen } = useShoppingCart();
   const user = useUser();
 
   if (!user) {
@@ -29,6 +29,7 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({ product }) => {
 
   function handleAddToCart() {
     addProductToCart(product);
+    setIsOpen(true)
   }
 
   return (

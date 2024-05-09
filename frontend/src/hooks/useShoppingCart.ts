@@ -3,6 +3,8 @@ import { create } from "zustand";
 
 interface ShoppingCartState {
   cartProducts: Product[];
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
   addProductToCart: (product: Product) => void;
   removeProductFromCart: (productId: Product["_id"]) => void;
   clearCart: () => void
@@ -10,6 +12,7 @@ interface ShoppingCartState {
 
 export const useShoppingCart = create<ShoppingCartState>((set) => ({
   cartProducts: JSON.parse(localStorage.getItem("cartProducts") || "[]"),
+  isOpen: false,
 
   addProductToCart: (product) => {
     set((state) => {
@@ -22,6 +25,12 @@ export const useShoppingCart = create<ShoppingCartState>((set) => ({
       // Return the updated state
       return { ...state, cartProducts: updatedCartProducts };
     });
+  },
+
+  setIsOpen: (isOpen) => {
+    set((state) => {
+      return {...state, isOpen: isOpen}
+    })
   },
 
   removeProductFromCart: (productId) => {

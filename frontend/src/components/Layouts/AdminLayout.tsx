@@ -15,6 +15,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { QueryClient, useQuery , useQueryClient } from "@tanstack/react-query";
 import { useUser } from "@/hooks/useUser";
 import ShoppingCart from "../ShoppingCart";
+import ProfileDropdown from "../ProfileDropdown";
 
 
 export default function AdminLayout({
@@ -22,15 +23,6 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const navigate = useNavigate();
-
-  const user = useUser();
-
-  const handleLogout = () => {
-    localStorage.removeItem("accesToken");
-    const queryClient = useQueryClient();
-    queryClient.invalidateQueries({queryKey: ["user"]});
-  }
 
   return (
     <main>
@@ -124,36 +116,7 @@ export default function AdminLayout({
             </div>
           </form>
           <ModeToggle />
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="secondary" size="icon" className="rounded-full">
-                <CircleUser className="h-5 w-5" />
-                <span className="sr-only">Toggle user menu</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Support</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              {user ? (
-                <DropdownMenuItem asChild>
-                  <Link
-                    to="/"
-                    className="cursor-pointer"
-                    onClick={handleLogout}
-                  >
-                    Logout
-                  </Link>
-                </DropdownMenuItem>
-              ) : (
-                <DropdownMenuItem asChild>
-                  <Link to="/login" className="cursor-pointer">Log in</Link>
-                </DropdownMenuItem>
-              )}
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <ProfileDropdown/>
         </div>
       </header>
       {children}

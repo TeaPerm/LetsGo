@@ -18,22 +18,15 @@ import ShoppingCart from "../ShoppingCart";
 import AdminLayout from "./AdminLayout";
 import LoggedOutLayout from "./LoggedOutLayout";
 import SearchBar from "../SearchBar";
+import ProfileDropdown from "../ProfileDropdown";
 
 export default function BaseLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const navigate = useNavigate();
 
   const user = useUser();
-
-  const handleLogout = () => {
-    localStorage.removeItem("accesToken");
-    localStorage.removeItem("cartProducts");
-    const queryClient = useQueryClient();
-    queryClient.invalidateQueries({ queryKey: ["user"] });
-  };
 
   if (!user) {
     return <LoggedOutLayout>{children}</LoggedOutLayout>;
@@ -126,33 +119,7 @@ export default function BaseLayout({
         <div className="flex w-full justify-end items-center gap-4 md:gap-2 lg:gap-4">
           <SearchBar/>
           <ModeToggle />
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="secondary" size="icon" className="rounded-full">
-                <CircleUser className="h-5 w-5" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Support</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              {user ? (
-                <DropdownMenuItem asChild>
-                  <Link to="/" onClick={handleLogout} className="cursor-pointer">
-                    Logout
-                  </Link>
-                </DropdownMenuItem>
-              ) : (
-                <DropdownMenuItem asChild>
-                  <Link to="/login" className="cursor-pointer">
-                    Log in
-                  </Link>
-                </DropdownMenuItem>
-              )}
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <ProfileDropdown/>
           <ShoppingCart />
         </div>
       </header>

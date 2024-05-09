@@ -22,7 +22,6 @@ const Products = () => {
   });
 
   const user = useUser();
-  const navigate = useNavigate()
 
   if (user?.is_admin) {
     return <AdminProducts />;
@@ -82,7 +81,7 @@ const Products = () => {
           <p className="mt-4 max-w-xl text-sm">
             Renting LEGO sets has never been easier - simply browse our catalog,
             choose your favorites, and embark on your next building journey.
-            With BrickRent, building memories is just a click away!
+            With LetsGo, building memories is just a click away!
           </p>
         </div>
         <div className=" pb-4">
