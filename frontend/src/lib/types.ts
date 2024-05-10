@@ -1,3 +1,4 @@
+//PRODUCT
 
 export interface Product {
   _id: string;
@@ -12,11 +13,15 @@ export interface Product {
   quantity?: number;
 }
 
+//USER
+
 export interface User{
   name: string,
   email: string,
   is_admin: boolean,
 }
+
+//ORDER
 
 export interface OrderLine {
   product_id: Product;
@@ -35,6 +40,8 @@ export interface OrderData {
   orderLines: OrderLine[];
 }
 
+
+//DATA
 export interface ProductsResponse{
   total: number;
   page: number;
@@ -43,3 +50,23 @@ export interface ProductsResponse{
   products: Product[];
 }
 
+interface MostSoldProduct {
+  totalQuantity: number;
+  count: number;
+  product: Product;
+}
+
+interface UserWithMostOrders {
+  totalOrders: number;
+  totalAmount: number;
+  user: User;
+}
+
+export interface AnalyticsResponse{
+  totalUsers: number;
+  totalProducts: number;
+  totalOrders: number;
+  totalSales: number;
+  mostSoldProduct: MostSoldProduct;
+  usersWithMostOrders: UserWithMostOrders[];
+}

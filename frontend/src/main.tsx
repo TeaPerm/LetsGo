@@ -14,6 +14,7 @@ import ProductEdit from "./pages/ProductEdit.tsx";
 import OrderSuccess from "./pages/OrderSuccess.tsx";
 import Products from "./pages/Products.tsx";
 import Register from "./pages/Register.tsx";
+import AdminDashboard from "./pages/AdminDashboard.tsx";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,14 @@ const router = createBrowserRouter([
     element: (
       <BaseLayout>
         <Index />
+      </BaseLayout>
+    ),
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <BaseLayout>
+        <AdminDashboard />
       </BaseLayout>
     ),
   },

@@ -25,7 +25,7 @@ export default function AdminLayout({
             <span className="sr-only">LetsGO</span>
           </Link>
           <Link
-            to="/"
+            to="/dashboard"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
             Dashboard
@@ -62,8 +62,14 @@ export default function AdminLayout({
               >
                 <Package2 className="h-6 w-6" />
               </Link>
-              <Link to="/products" className="hover:text-foreground">
+              <Link to="/" className="hover:text-foreground">
                 Dashboard
+              </Link>
+              <Link
+                to="/products"
+                className="text-muted-foreground hover:text-foreground"
+              >
+                Products
               </Link>
               <Link
                 to="/orders"
@@ -71,12 +77,6 @@ export default function AdminLayout({
               >
                 Orders
               </Link>
-              <a
-                href="#"
-                className="text-muted-foreground hover:text-foreground"
-              >
-                Products
-              </a>
               <a
                 href="#"
                 className="text-muted-foreground hover:text-foreground"
