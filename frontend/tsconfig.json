@@ -8,6 +8,8 @@
 
     /* Bundler mode */
     
+    //new
+    "noEmitOnError": false,
     //this Line
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "bundler",
