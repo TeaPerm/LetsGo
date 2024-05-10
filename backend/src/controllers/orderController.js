@@ -7,9 +7,12 @@ import { createCheckoutLink } from "../utils/stripe.js";
 export const orderController = {
   getOrders: async (req, res) => {
     try {
+      const limit = parseInt(req.query.limit) || 0;
+
       const orders = await Order.find()
         .select("-__v -updatedAt")
-        .populate("user_id");
+        .populate("user_id")
+        .limit(limit);
       const ordersWithLines = await getOrdersWithLines(orders);
 
       res.status(200).json(ordersWithLines);
@@ -102,8 +105,8 @@ export const orderController = {
     try {
       const { orderId } = req.params;
       await Order.findByIdAndDelete(orderId);
-      await OrderLine.deleteMany({order_id : orderId});
-      res.status(200).json({message: "Order deleted succesfully"})
+      await OrderLine.deleteMany({ order_id: orderId });
+      res.status(200).json({ message: "Order deleted succesfully" });
     } catch (err) {
       res.status(500).json(err);
     }
