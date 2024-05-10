@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 
 export default function ProductCartDialog() {
   const { setIsOpen, isOpen, cartProducts, removeProductFromCart } =
-    useShoppingCart();
+  useShoppingCart();
   const [isLoading, setIsLoading] = useState(false);
 
   const proceedCheckout = useMutation({
@@ -36,6 +36,7 @@ export default function ProductCartDialog() {
       return responseData;
     },
     onSuccess: (data) => {
+      console.log(data)
       console.log(data.url);
       window.location.href = data.url;
     },

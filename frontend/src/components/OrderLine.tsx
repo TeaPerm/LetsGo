@@ -14,7 +14,7 @@ const OrderLine = ({ order, isActive = false, onClick, ...props }: OrderLineProp
   const { user_id: user } = order;
 
   return (
-    <TableRow className={isActive ? "bg-accent" : ""} {...props}>
+    <TableRow className={isActive ? "bg-accent" : ""} onClick={onClick} {...props}>
       <TableCell>
         <div className="font-medium">{user.name}</div>
         <div className="hidden text-sm text-muted-foreground md:inline">

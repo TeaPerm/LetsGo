@@ -41,6 +41,7 @@ const LoadableButton = forwardRef<HTMLButtonElement, LoadableButtonProps>(
         ref={ref}
         disabled={loading || disabled}
         {...props}
+        onClick={onClick}
       >
         {loading && (
           <Ring
