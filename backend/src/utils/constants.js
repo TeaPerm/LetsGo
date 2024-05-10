@@ -12,4 +12,4 @@ export const productCategoryTypes = [
   "Ideas",
 ];
 
-export const frontEndURL = "http://localhost:5173"
+export const frontEndURL = "https://lets-go-frontend.vercel.app"
