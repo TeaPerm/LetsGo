@@ -9,9 +9,9 @@ export const analyticsController = {
         try{
 
             
-            const userCount = await User.countDocuments()
-            const productCount = await Product.countDocuments()
-            const orderCount = await Order.countDocuments()
+            const totalUsers = await User.countDocuments()
+            const totalProducts = await Product.countDocuments()
+            const totalOrders = await Order.countDocuments()
             const totalSales = await getTotalOrdersSum();
             const mostSoldProduct = await getMostSoldProduct();
 
@@ -19,9 +19,9 @@ export const analyticsController = {
             const usersWithMostOrders = await getTopUsersByTotalOrderAmount(userCountForMostOrders);
             
             const response = {
-                userCount,
-                productCount,
-                orderCount,
+                totalUsers,
+                totalProducts,
+                totalOrders,
                 totalSales,
                 mostSoldProduct,
                 usersWithMostOrders,
