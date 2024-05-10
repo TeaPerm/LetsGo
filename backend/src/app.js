@@ -1,7 +1,7 @@
 import express from "express";
 import productsRouter from "./routes/products.js";
 import dotenv from "dotenv";
-import { connectToDatabase } from "./utils/db.js";
+import { connectToDatabase } from "./config/db.js";
 import usersRouter from "./routes/users.js";
 import ordersRouter from "./routes/orders.js";
 import cors from "cors";
@@ -10,7 +10,7 @@ import { orderController } from "./controllers/orderController.js";
 import { constructOrderDetailsFromStripe, verifyStripe } from "./middleware/stripeMiddleware.js";
 
 dotenv.config();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 connectToDatabase();
