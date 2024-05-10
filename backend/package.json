@@ -7,8 +7,8 @@
   "scripts": {
     "dev": "nodemon src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "express build --output public",
-    "start": "node src/app.js"
+    "start": "node src/app.js",
+    "vercel-build": "echo hello"
   },
   "keywords": [],
   "author": "",
