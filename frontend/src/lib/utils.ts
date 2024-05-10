@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export const API_URL = "http://localhost:3000";
+export const API_URL = "https://lets-go-phi.vercel.app";
 
 export function convertDate(timestamp: string) : string {
   const date = new Date(timestamp);
