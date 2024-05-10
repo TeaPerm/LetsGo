@@ -14,6 +14,7 @@ import {
   constructOrderDetailsFromStripe,
   verifyStripe,
 } from "./middleware/stripeMiddleware.js";
+import analyticsRouter from "./routes/analytics.js";
 
 dotenv.config();
 const PORT = process.env.PORT || 3000;
@@ -46,8 +47,10 @@ app.use((req, res, next) => {
 });
 
 //ROUTES
-app.use("/products", productsRouter), app.use("/users", usersRouter);
+app.use("/products", productsRouter);
+app.use("/users", usersRouter);
 app.use("/orders", ordersRouter);
+app.use("/analytics", analyticsRouter);
 
 app
   .listen(PORT, () => {
