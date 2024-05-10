@@ -35,13 +35,12 @@ export interface Order {
   createdAt: string;
 }
 
+//DATA RESPONSE
+
 export interface OrderData {
   order: Order;
   orderLines: OrderLine[];
 }
-
-
-//DATA
 export interface ProductsResponse{
   total: number;
   page: number;
@@ -50,8 +49,9 @@ export interface ProductsResponse{
   products: Product[];
 }
 
-interface MostSoldProduct {
+export interface MostSoldProduct {
   totalQuantity: number;
+  totalIncome: number;
   count: number;
   product: Product;
 }

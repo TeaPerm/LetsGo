@@ -71,3 +71,9 @@ export function calculateCartTotal(products: Product[]) {
   }
   return formatPriceForints(total);
 }
+
+export function getInitials(fullName: string): string {
+  const words = fullName.split(' ');
+  const initials = words.map(word => word.charAt(0).toUpperCase());
+  return initials.join('');
+}
