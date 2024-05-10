@@ -1,11 +1,11 @@
 import React from "react";
 import { Product } from "@/lib/types";
-import { convertDate, formatPriceForints } from "@/lib/utils";
+import { formatPriceForints } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import AddToCartButton from "./AddToCartButton";
 
 const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
-  const { price, name, image, category, createdAt, _id } = product;
+  const { price, name, image, category, _id } = product;
   return (
     <div>
       <div className="relative">

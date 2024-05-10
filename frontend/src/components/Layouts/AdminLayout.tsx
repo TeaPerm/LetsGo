@@ -1,20 +1,9 @@
-import { CircleUser, Menu, Package2, Search } from "lucide-react";
+import { Menu, Package2, Search } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
 import { ModeToggle } from "../mode-toggle";
-import { Link, useNavigate } from "react-router-dom";
-import { QueryClient, useQuery , useQueryClient } from "@tanstack/react-query";
-import { useUser } from "@/hooks/useUser";
-import ShoppingCart from "../ShoppingCart";
+import { Link } from "react-router-dom";
 import ProfileDropdown from "../ProfileDropdown";
 
 

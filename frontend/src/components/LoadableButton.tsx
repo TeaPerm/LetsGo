@@ -4,14 +4,16 @@ import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 
 interface LoadableButtonProps {
-  className: string;
-  variant: string;
-  size: number;
-  asChild: boolean;
-  loading: boolean;
-  disabled: boolean;
-  loaderSize: number;
-  children: React.ReactNode;
+  className?: any;
+  variant?: any;
+  size?: any;
+  asChild?: boolean;
+  loading?: boolean;
+  disabled?: boolean;
+  loaderSize?: number;
+  children?: React.ReactNode;
+  onClick? : () => void;
+  props?: any;
 }
 
 const LoadableButton = forwardRef<HTMLButtonElement, LoadableButtonProps>(
@@ -25,6 +27,7 @@ const LoadableButton = forwardRef<HTMLButtonElement, LoadableButtonProps>(
       disabled,
       loaderSize = 18,
       children,
+      onClick,
       ...props
     },
     ref
@@ -45,7 +48,6 @@ const LoadableButton = forwardRef<HTMLButtonElement, LoadableButtonProps>(
             lineWeight={8}
             speed={2}
             color="white"
-            className="pr-2"
           />
         )}{" "}
         {children}

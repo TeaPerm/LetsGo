@@ -23,6 +23,8 @@ const SearchBar = () => {
     enabled: debouncedSearchInput.length >= 3,
   });
 
+  console.log(data)
+
   const handleOnChange = (input: string) => {
     setSearchInput(input);
   };

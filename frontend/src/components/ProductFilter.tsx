@@ -1,67 +1,27 @@
 import { Fragment, useState } from "react";
 import {
-  Dialog,
-  Disclosure,
   Menu,
   Popover,
   Transition,
 } from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import { CategoryMultiSelect } from "./CategoryMultiSelect";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-
 
 const sortOptions = [
   { name: "Most Popular", href: "#", current: true },
   { name: "Best Rating", href: "#", current: false },
   { name: "Newest", href: "#", current: false },
 ];
-const filters = [
-  {
-    id: "category",
-    name: "Category",
-    options: [
-      { value: "new-arrivals", label: "All New Arrivals", checked: false },
-      { value: "tees", label: "Tees", checked: false },
-      { value: "objects", label: "Objects", checked: true },
-    ],
-  },
-  {
-    id: "color",
-    name: "Color",
-    options: [
-      { value: "white", label: "White", checked: false },
-      { value: "beige", label: "Beige", checked: false },
-      { value: "blue", label: "Blue", checked: false },
-    ],
-  },
-  {
-    id: "sizes",
-    name: "Sizes",
-    options: [
-      { value: "s", label: "S", checked: false },
-      { value: "m", label: "M", checked: false },
-      { value: "l", label: "L", checked: false },
-    ],
-  },
-];
+
 const activeFilters = [{ value: "objects", label: "Objects" }];
 
-function classNames(...classes) {
+function classNames(...classes : any) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function ProductFilter() {
-  const [open, setOpen] = useState(false);
+  const [ open,setOpen] = useState(false);
+
+  console.log(open)
 
   return (
     <div className="">
@@ -130,7 +90,6 @@ export default function ProductFilter() {
             <div className="hidden sm:block">
               <div className="flow-root">
                 <Popover.Group className="-mx-4 flex items-center divide-x divide-gray-200">
-                  <CategoryMultiSelect/>
                  
                 </Popover.Group>
               </div>

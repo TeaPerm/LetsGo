@@ -1,15 +1,7 @@
-import { ChevronLeft, Upload } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Select,
   SelectContent,
@@ -32,21 +24,19 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import CustomFormField from "@/components/CustomFormField";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
 import { Link, useNavigate } from "react-router-dom";
-import { Product } from "@/lib/types";
 
 const formSchema = z.object({
   name: z.string().min(1),
   price: z.coerce.number().int().positive(),
   description: z.string().min(5),
-  category: z.enum(productCategoryTypes, { message: "Provide a category" }),
+  category: z.string({ message: "Please provide a category." }).min(1, {message: "Please provide a category."}),
   image: z.string().url().min(10),
 });
 
 interface FormSchema {
-  name: string;
+  name: string; 
   price: number;
   description: string;
   category: string;
@@ -54,7 +44,6 @@ interface FormSchema {
 }
 
 export function ProductCreate() {
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -67,7 +56,7 @@ export function ProductCreate() {
   });
 
   const inputImageURL = form.watch("image");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const productCreateMutation = useMutation({
     mutationFn: async (productData: FormSchema) => {
@@ -81,18 +70,18 @@ export function ProductCreate() {
         body: JSON.stringify(productData),
       });
     },
-    onError: (err) =>{
-      console.log(err)
+    onError: (err) => {
+      console.log(err);
     },
     onSuccess: () => {
-      navigate("/products")
-    }
+      navigate("/products");
+    },
   });
 
   function onSubmit(productData: z.infer<typeof formSchema>) {
     console.log(productData);
 
-    productCreateMutation.mutate(productData)
+    productCreateMutation.mutate(productData);
   }
 
   return (
@@ -103,10 +92,15 @@ export function ProductCreate() {
             <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
               <div className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4">
                 <div className="flex items-center gap-4">
-                  <Button variant="outline" size="icon" className="h-7 w-7" asChild>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="h-7 w-7"
+                    asChild
+                  >
                     <Link to="/products">
-                    <ChevronLeft className="h-4 w-4" />
-                    <span className="sr-only">Back</span>
+                      <ChevronLeft className="h-4 w-4" />
+                      <span className="sr-only">Back</span>
                     </Link>
                   </Button>
                   <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
@@ -230,7 +224,7 @@ export function ProductCreate() {
   );
 }
 
-function SelectFormField({ form }) {
+function SelectFormField({ form }: { form: any }) {
   return (
     <FormField
       control={form.control}

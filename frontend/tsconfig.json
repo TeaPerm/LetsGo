@@ -7,11 +7,6 @@
     "skipLibCheck": true,
 
     /* Bundler mode */
-    
-    //new
-    "noEmitOnError": false,
-    //this Line
-    "forceConsistentCasingInFileNames": true,
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
@@ -20,8 +15,7 @@
     "jsx": "react-jsx",
 
     /* Linting */
-    //this Line
-    "strict": false,
+    "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,

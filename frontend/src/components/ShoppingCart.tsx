@@ -127,15 +127,9 @@
 
 // export default ShoppingCart;
 
-import React from "react";
-import Example from "./Example";
 import { ToyBrick } from "lucide-react";
 import { Button } from "./ui/button";
-import { Product } from "@/lib/types";
-import { API_URL, formatPriceForints } from "@/lib/utils";
-import { useMutation } from "@tanstack/react-query";
 import { useShoppingCart } from "@/hooks/useShoppingCart";
-import { LoadableButton } from "./LoadableButton";
 import ProductCartDialog from "./ProductCartDialog";
 
 const ShoppingCart = () => {

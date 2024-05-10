@@ -1,12 +1,7 @@
 import {
-  ChevronLeft,
-  ChevronRight,
   Copy,
   CreditCard,
-  MoreVertical,
-  Truck,
 } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -16,21 +11,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-} from "@/components/ui/pagination";
 import { Separator } from "@/components/ui/separator";
 import React from "react";
-import { Order, OrderData, OrderLine } from "@/lib/types";
+import { Order, OrderLine } from "@/lib/types";
 import { convertDate, formatPriceForints } from "@/lib/utils";
 import Loading from "./Loading";
 

@@ -5,7 +5,6 @@ import { convertDate, formatPriceForints } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
-import { Ring } from "@uiball/loaders";
 
 const OrderCard: React.FC<{
   orderData: { order: Order; orderLines: OrderLine[] };

@@ -5,7 +5,6 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { useScrollToTop } from "@/hooks/useScrollToTop";
 import { useSearchParams } from "react-router-dom";
 
 interface ProductPaginationProps {

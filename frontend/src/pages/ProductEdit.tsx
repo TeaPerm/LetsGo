@@ -1,15 +1,12 @@
-import { ChevronLeft, Upload } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -32,16 +29,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import CustomFormField from "@/components/CustomFormField";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import Loading from "@/components/Loading";
-import { Product } from "@/lib/types";
 
 const formSchema = z.object({
   name: z.string().min(1),
   price: z.coerce.number().int().positive(),
   description: z.string().min(5),
-  category: z.enum(productCategoryTypes, { message: "Provide a category" }),
+  category: z.string({ message: "Please provide a category." }).min(1, {message: "Please provide a category."}),
   image: z.string().url().min(10),
 });
 
@@ -237,7 +232,7 @@ export default function ProductEdit() {
   );
 }
 
-function SelectFormField({ form }) {
+function SelectFormField({ form } : {form: any}) {
   return (
     <FormField
       control={form.control}

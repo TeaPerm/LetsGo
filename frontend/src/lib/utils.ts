@@ -36,7 +36,7 @@ export function formatPriceForints(price : Number) : string {
   }
 }
 
-export const productCategoryTypes : string[] = [
+export let productCategoryTypes = [
   "Star Wars",
   "Disney",
   "BIONICLE",
@@ -49,6 +49,7 @@ export const productCategoryTypes : string[] = [
   "Architecture",
   "Ideas",
 ];
+
 
 export function calculateTotalOrders(orders: OrderData[]): number {
   if(!orders){

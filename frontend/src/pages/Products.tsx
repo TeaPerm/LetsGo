@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { ProductPagination } from "@/components/ProductPagination";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 const Products = () => {
   const [searchParams, setSearchParams] = useSearchParams({

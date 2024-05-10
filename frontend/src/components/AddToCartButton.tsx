@@ -11,7 +11,7 @@ interface AddToCartButtonProps {
 }
 
 const AddToCartButton: React.FC<AddToCartButtonProps> = ({ product }) => {
-  const { addProductToCart , setIsOpen , isOpen } = useShoppingCart();
+  const { addProductToCart , setIsOpen } = useShoppingCart();
   const user = useUser();
 
   if (!user) {

@@ -1,4 +1,3 @@
-import React from "react";
 import { TableCell, TableRow } from "./ui/table";
 import { Badge } from "./ui/badge";
 import { Order } from "@/lib/types";
@@ -7,10 +6,11 @@ import { convertDate, formatPriceForints } from "@/lib/utils";
 interface OrderLineProps {
   order: Order;
   isActive: boolean;
-  props: any
+  onClick?: () => void;
+  props?: any
 }
 
-const OrderLine = ({ order, isActive = false, ...props }: OrderLineProps) => {
+const OrderLine = ({ order, isActive = false, onClick, ...props }: OrderLineProps) => {
   const { user_id: user } = order;
 
   return (
