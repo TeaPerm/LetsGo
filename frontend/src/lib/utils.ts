@@ -1,14 +1,14 @@
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
-import { OrderData } from "./types";
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+import { OrderData, Product } from "./types";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
 export const API_URL = "https://lets-go-phi.vercel.app";
 
-export function convertDate(timestamp: string) : string {
+export function convertDate(timestamp: string): string {
   const date = new Date(timestamp);
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -23,13 +23,16 @@ export function convertDate(timestamp: string) : string {
  * @returns {string} - A formatted string representation of the price with dots as thousands separators and a comma as a decimal separator.
  */
 
-export function formatPriceForints(price : Number) : string {
+export function formatPriceForints(price: Number): string {
   if (!price && price !== 0) return "";
   const [integerPart, decimalPart] = price.toFixed(2).split(".");
-  const formattedIntegerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  const formattedIntegerPart = integerPart.replace(
+    /\B(?=(\d{3})+(?!\d))/g,
+    "."
+  );
   let formattedDecimalPart = decimalPart || "0";
-  formattedDecimalPart = formattedDecimalPart.replace(/0+$/, ''); // Remove trailing zeros
-  if (formattedDecimalPart === '') {
+  formattedDecimalPart = formattedDecimalPart.replace(/0+$/, ""); // Remove trailing zeros
+  if (formattedDecimalPart === "") {
     return formattedIntegerPart + " Ft";
   } else {
     return formattedIntegerPart + "," + formattedDecimalPart + " Ft";
@@ -50,14 +53,21 @@ export let productCategoryTypes = [
   "Ideas",
 ];
 
-
 export function calculateTotalOrders(orders: OrderData[]): number {
-  if(!orders){
+  if (!orders) {
     return 0;
   }
   let total: number = 0;
   for (const orderData of orders) {
-      total += orderData.order.total;
+    total += orderData.order.total;
   }
   return total;
+}
+
+export function calculateCartTotal(products: Product[]) {
+  let total = 0;
+  for (const product of products) {
+    total += product.price*product.quantity!;
+  }
+  return formatPriceForints(total);
 }

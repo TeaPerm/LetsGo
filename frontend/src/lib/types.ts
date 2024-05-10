@@ -9,6 +9,7 @@ export interface Product {
   createdAt: Date;
   stripePriceId: string;
   stripeProductId: string;
+  quantity?: number;
 }
 
 export interface User{

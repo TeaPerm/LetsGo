@@ -11,7 +11,6 @@ export default function LoggedOutLayout({
 }: {
   children: React.ReactNode;
 }) {
-
   return (
     <main>
       <header className="sticky z-20 top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
@@ -22,6 +21,12 @@ export default function LoggedOutLayout({
           >
             <Package2 className="h-6 w-6" />
             <span className="sr-only">LetsGO</span>
+          </Link>
+          <Link
+            to="/"
+            className="text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Home
           </Link>
           <Link
             to="/products"
@@ -43,18 +48,24 @@ export default function LoggedOutLayout({
           </SheetTrigger>
           <SheetContent side="left">
             <nav className="grid gap-6 text-lg font-medium">
-              <a
-                href="#"
+              <Link
+                to="/"
                 className="flex items-center gap-2 text-lg font-semibold"
               >
                 <Package2 className="h-6 w-6" />
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to="/"
+                className="text-muted-foreground hover:text-foreground"
+              >
+                Home
+              </Link>
+              <Link
+                to="/products"
                 className="text-muted-foreground hover:text-foreground"
               >
                 Products
-              </a>
+              </Link>
             </nav>
           </SheetContent>
         </Sheet>
@@ -70,7 +81,7 @@ export default function LoggedOutLayout({
             </div>
           </form>
           <ModeToggle />
-          <ProfileDropdown/>
+          <ProfileDropdown />
         </div>
       </header>
       {children}

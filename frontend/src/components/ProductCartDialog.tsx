@@ -5,21 +5,22 @@ import { useShoppingCart } from "@/hooks/useShoppingCart";
 import { useMutation } from "@tanstack/react-query";
 import { Button } from "./ui/button";
 import { Product } from "@/lib/types";
-import { API_URL, formatPriceForints } from "@/lib/utils";
+import { API_URL, calculateCartTotal, formatPriceForints } from "@/lib/utils";
 import { LoadableButton } from "./LoadableButton";
 import { Link } from "react-router-dom";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "./ui/select";
 
 export default function ProductCartDialog() {
-  const { setIsOpen, isOpen, cartProducts, removeProductFromCart } =
-  useShoppingCart();
+  const { setIsOpen, isOpen, cartProducts, removeProductFromCart, setQuantity } =
+    useShoppingCart();
   const [isLoading, setIsLoading] = useState(false);
 
   const proceedCheckout = useMutation({
     mutationFn: async (cartProducts: Product[]) => {
       setIsLoading(true);
-      const requestData = cartProducts.map(({ _id }) => ({
+      const requestData = cartProducts.map(({ _id , quantity}) => ({
         product_id: _id,
-        quantity: 1,
+        quantity,
       }));
       const token = localStorage.getItem("accesToken");
       const response: Response = await fetch(`${API_URL}/orders/checkout`, {
@@ -36,7 +37,7 @@ export default function ProductCartDialog() {
       return responseData;
     },
     onSuccess: (data) => {
-      console.log(data)
+      console.log(data);
       console.log(data.url);
       window.location.href = data.url;
     },
@@ -69,7 +70,7 @@ export default function ProductCartDialog() {
               leaveTo="opacity-0 scale-105"
             >
               <Dialog.Panel className="flex w-full max-w-3xl transform text-left text-base transition sm:my-8">
-                <form className="relative flex w-full flex-col overflow-hidden bg-muted pb-8 pt-6 sm:rounded-lg sm:pb-6 lg:py-8">
+                <form className="relative flex w-full flex-col overflow-hidden bg-background pb-8 pt-6 sm:rounded-lg sm:pb-6 lg:py-8">
                   <div className="flex items-center justify-between px-4 sm:px-6 lg:px-8">
                     <h2 className="text-lg font-medium">Shopping Cart</h2>
                     <button
@@ -94,7 +95,11 @@ export default function ProductCartDialog() {
                       {cartProducts.length == 0 && (
                         <div className="flex items-center justify-center my-12">
                           Your cart is empty add products to checkout!
-                          <Button variant="link" onClick={()=> setIsOpen(false)} asChild>
+                          <Button
+                            variant="link"
+                            onClick={() => setIsOpen(false)}
+                            asChild
+                          >
                             <Link to="/products">Start shopping</Link>
                           </Button>
                         </div>
@@ -113,34 +118,40 @@ export default function ProductCartDialog() {
                               <h3 className="font-medium ">
                                 <a href="">{product.name}</a>
                               </h3>
-                              <p className="mt-1 text-gray-500">
+                              <p className="mt-1 text-foreground/80">
                                 {product.category}
+                              </p>
+                              <p className="mt-1 text-foreground/50">
+                                {formatPriceForints(product.price)} / each
                               </p>
                             </div>
                             <p className="row-span-2 row-end-2 font-medium sm:order-1 sm:ml-6 sm:w-1/3 sm:flex-none sm:text-right">
-                              {formatPriceForints(product.price)}
+                              {formatPriceForints(product.price*product.quantity!)}
                             </p>
                             <div className="flex items-center sm:block sm:flex-none sm:text-center">
-                              <label
-                                htmlFor={`quantity-${product._id}`}
-                                className="sr-only"
-                              >
-                                Quantity, {product.name}
-                              </label>
-                              <select
-                                id={`quantity-${product._id}`}
-                                name={`quantity-${product._id}`}
-                                className="block max-w-full rounded-md border py-1.5 text-left text-base font-medium leading-5 text-gray-700 shadow-smfocus:outline-none focus:ring-1sm:text-sm"
-                              >
-                                <option value={1}>1</option>
-                                <option value={2}>2</option>
-                                <option value={3}>3</option>
-                                <option value={4}>4</option>
-                                <option value={5}>5</option>
-                                <option value={6}>6</option>
-                                <option value={7}>7</option>
-                                <option value={8}>8</option>
-                              </select>
+                              <Select defaultValue={product.quantity?.toString()} onValueChange={(value) => setQuantity(product._id,parseInt(value))}>
+                                <SelectTrigger className="w-[80px]">
+                                  <SelectValue placeholder="Quantity" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    <SelectLabel>Quantity</SelectLabel>
+                                    <SelectItem value="1">1</SelectItem>
+                                    <SelectItem value="2">
+                                      2
+                                    </SelectItem>
+                                    <SelectItem value="3">
+                                      3
+                                    </SelectItem>
+                                    <SelectItem value="4">
+                                      4
+                                    </SelectItem>
+                                    <SelectItem value="5">
+                                      5
+                                    </SelectItem>
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
 
                               <Button
                                 variant="link"
@@ -172,15 +183,16 @@ export default function ProductCartDialog() {
 
                       <div className="flow-root">
                         <dl className="-my-4 divide-y divide-gray-200 text-sm">
-                          <div className="flex items-center justify-between py-4">
-                            <dt className="">Subtotal</dt>
-                            <dd className="font-medium">$262.00</dd>
+                          <div>
+                            <dt />
                           </div>
                           <div className="flex items-center justify-between py-4">
                             <dt className="text-base font-medium">
                               Order total
                             </dt>
-                            <dd className="text-base font-medium">$320.40</dd>
+                            <dd className="text-base font-medium">
+                              {calculateCartTotal(cartProducts)}
+                            </dd>
                           </div>
                         </dl>
                       </div>

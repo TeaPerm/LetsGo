@@ -52,11 +52,23 @@ const Products = () => {
 
   if (isLoading || !data) {
     return (
-      <div className="mt-8 mb-12 mx-4 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
-        {Array.from({ length: 8 }, (_, index) => (
-          <ProductSkeleton key={index} />
-        ))}
-      </div>
+      <>
+        <div className="mx-auto px-4 py-8 sm:px-6 lg:px-8">
+          <h1 className="text-3xl font-bold tracking-tight">
+            LetsGo: Build memories
+          </h1>
+          <p className="mt-4 max-w-xl text-sm">
+            Renting LEGO sets has never been easier - simply browse our catalog,
+            choose your favorites, and embark on your next building journey.
+            With LetsGo, building memories is just a click away!
+          </p>
+        </div>
+        <div className="mt-8 mb-12 mx-4 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
+          {Array.from({ length: 8 }, (_, index) => (
+            <ProductSkeleton key={index} />
+          ))}
+        </div>
+      </>
     );
   }
 
@@ -74,7 +86,7 @@ const Products = () => {
   return (
     <div>
       <div>
-        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="mx-auto px-4 py-8 sm:px-6 lg:px-8">
           <h1 className="text-3xl font-bold tracking-tight">
             LetsGo: Build memories
           </h1>
@@ -85,7 +97,7 @@ const Products = () => {
           </p>
         </div>
         <div className=" pb-4">
-          <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8">
             <SortSelect />
             <CategoryMultiSelect
               checkedItems={categories}

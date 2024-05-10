@@ -56,22 +56,21 @@ export default function AdminLayout({
           </SheetTrigger>
           <SheetContent side="left">
             <nav className="grid gap-6 text-lg font-medium">
-              <a
-                href="#"
+              <Link
+                to="/"
                 className="flex items-center gap-2 text-lg font-semibold"
               >
                 <Package2 className="h-6 w-6" />
-                <span className="sr-only">Acme Inc</span>
-              </a>
-              <a href="#" className="hover:text-foreground">
+              </Link>
+              <Link to="/products" className="hover:text-foreground">
                 Dashboard
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to="/orders"
                 className="text-muted-foreground hover:text-foreground"
               >
                 Orders
-              </a>
+              </Link>
               <a
                 href="#"
                 className="text-muted-foreground hover:text-foreground"

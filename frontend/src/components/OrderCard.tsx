@@ -9,9 +9,8 @@ import { Separator } from "./ui/separator";
 const OrderCard: React.FC<{
   orderData: { order: Order; orderLines: OrderLine[] };
 }> = ({ orderData }) => {
-
   if (!orderData) {
-    return 
+    return;
   }
 
   const { order, orderLines } = orderData;
@@ -62,9 +61,16 @@ const OrderCard: React.FC<{
                       {product.name}
                       <span className="font-bold "> x {quantity}</span>
                     </h5>
-                    <p className="mt-2 sm:mt-0">
-                      {formatPriceForints(product.price)}
-                    </p>
+                    <div className="mt-2 sm:mt-0 flex flex-col items-center">
+                      <span>
+                        {formatPriceForints(product.price * quantity)}
+                      </span>
+                      {quantity > 1 && (
+                        <span className="text-foreground/50">
+                          {formatPriceForints(product.price)} / each
+                        </span>
+                      )}
+                    </div>
                   </div>
                   <p className="hidden text-alternate font-semibold sm:mt-2 sm:block">
                     {product.category}

@@ -5,7 +5,6 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { z } from "zod";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -16,6 +15,7 @@ import {
 import { Form, FormMessage } from "@/components/ui/form";
 import CustomFormField from "@/components/CustomFormField";
 import { useState } from "react";
+import { LoadableButton } from "@/components/LoadableButton";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -40,13 +40,16 @@ const Register = () => {
     },
   });
 
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const mutation = useMutation({
     mutationFn: (loginData: FormSchema) => {
+      setIsLoading(true)
       return axios.post(API_URL + "/users/register", loginData);
     },
     onError: (err: any) => {
+      setIsLoading(false)
       const errorMessage = err.response.data.message;
       setError(errorMessage);
     },
@@ -61,10 +64,11 @@ const Register = () => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     mutation.mutate(values);
   }
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <Card className="mx-auto max-w-sm mt-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 mt-12">
+        <Card className="mx-auto my-auto h-fit max-w-sm">
           <CardHeader>
             <CardTitle className="text-xl">Sign Up</CardTitle>
             <CardDescription>
@@ -96,12 +100,9 @@ const Register = () => {
                 inputPlaceHolder="*******"
               />
 
-              <Button type="submit" className="w-full">
-                Create an account
-              </Button>
-              <Button variant="outline" className="w-full">
-                Sign up with GitHub
-              </Button>
+              <LoadableButton loading={isLoading} className="w-full">
+                Login
+              </LoadableButton>
             </div>
             <div className="mt-4 text-center text-sm">
               Already have an account?{" "}

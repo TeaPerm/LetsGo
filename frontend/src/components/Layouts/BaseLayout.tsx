@@ -41,7 +41,7 @@ export default function BaseLayout({
             to="/"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
-            Dashboard
+            Home
           </Link>
           <Link
             to="/products"
@@ -69,40 +69,27 @@ export default function BaseLayout({
           </SheetTrigger>
           <SheetContent side="left">
             <nav className="grid gap-6 text-lg font-medium">
-              <a
-                href="#"
+              <Link
+                to="/"
                 className="flex items-center gap-2 text-lg font-semibold"
               >
                 <Package2 className="h-6 w-6" />
-                <span className="sr-only">Acme Inc</span>
-              </a>
-              <a href="#" className="hover:text-foreground">
-                Dashboard
-              </a>
-              <a
-                href="#"
-                className="text-muted-foreground hover:text-foreground"
-              >
-                Orders
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link to="/" className="hover:text-foreground">
+                Home
+              </Link>
+              <Link
+              to="/products"
                 className="text-muted-foreground hover:text-foreground"
               >
                 Products
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to="/orders"
                 className="text-muted-foreground hover:text-foreground"
               >
-                Customers
-              </a>
-              <a
-                href="#"
-                className="text-muted-foreground hover:text-foreground"
-              >
-                Analytics
-              </a>
+                Orders
+              </Link>
             </nav>
           </SheetContent>
         </Sheet>
