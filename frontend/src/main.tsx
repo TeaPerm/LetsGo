@@ -7,7 +7,6 @@ import { ThemeProvider } from "./components/theme-provider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Index from "./pages/Index.tsx";
 import ProductDetails from "./pages/ProductDetails.tsx";
-import AdminProducts from "./pages/AdminProducts.tsx";
 import BaseLayout from "./components/Layouts/BaseLayout.tsx";
 import { ProductCreate } from "./pages/ProductCreate.tsx";
 import UserOrders from "./pages/UserOrders.tsx";

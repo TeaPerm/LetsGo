@@ -10,7 +10,12 @@ import {
 import { ChevronDownIcon } from "lucide-react";
 import { productCategoryTypes } from "@/lib/utils";
 
-export function CategoryMultiSelect({ checkedItems, handleCheckedChange }) {
+interface CategoryMultiSelectProps{
+  checkedItems: any;
+  handleCheckedChange: any;
+}
+
+export function CategoryMultiSelect({ checkedItems, handleCheckedChange } : CategoryMultiSelectProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="flex items-center" asChild>
