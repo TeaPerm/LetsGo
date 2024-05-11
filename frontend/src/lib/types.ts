@@ -16,6 +16,7 @@ export interface Product {
 //USER
 
 export interface User{
+  _id: string
   name: string,
   email: string,
   is_admin: boolean,
@@ -56,7 +57,7 @@ export interface MostSoldProduct {
   product: Product;
 }
 
-interface UserWithMostOrders {
+export interface UserWithMostOrders {
   totalOrders: number;
   totalAmount: number;
   user: User;
