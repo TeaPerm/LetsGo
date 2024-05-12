@@ -73,13 +73,13 @@ export default function ProductList({
         </div>
 
         <div className="mt-8 text-sm md:hidden">
-          <a
-            href="#"
-            className="font-medium text-indigo-600 hover:text-indigo-500"
+          <Link
+            to={`/products/?category=${category}`}
+            className="text-sm font-medium hover:text-foreground/80"
           >
             Shop the category
             <span aria-hidden="true"> &rarr;</span>
-          </a>
+          </Link>
         </div>
       </div>
     </div>

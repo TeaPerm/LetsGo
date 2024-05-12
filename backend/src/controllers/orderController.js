@@ -11,7 +11,10 @@ export const orderController = {
 
       const orders = await Order.find()
         .select("-__v -updatedAt")
-        .populate("user_id")
+        .populate({
+          path: "user_id",
+          select: "-password -__v -updatedAt -is_admin",
+        })
         .limit(limit);
       const ordersWithLines = await getOrdersWithLines(orders);
 
@@ -130,7 +133,7 @@ async function getOrderLines(orderId) {
     .select("-__v -_id -createdAt -updatedAt -order_id")
     .populate({
       path: "product_id",
-      select: "-__v -createdAt -updatedAt",
+      select: "-__v -stripePriceId -stripeProductId",
     });
 
   return orderLines;

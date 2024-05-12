@@ -10,7 +10,7 @@ export const productController = {
       const page = parseInt(req.query.page) - 1 || 0;
       const limit = parseInt(req.query.limit) || 0;
       const search = req.query.search || "";
-      let sort = req.query.sort || "createdAt_desc";
+      let sort = req.query.sort || "createdAt";
       let categories = req.query.category || "All";
 
       if (categories === "All") {

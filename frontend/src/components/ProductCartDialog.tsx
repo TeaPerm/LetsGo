@@ -8,17 +8,30 @@ import { Product } from "@/lib/types";
 import { API_URL, calculateCartTotal, formatPriceForints } from "@/lib/utils";
 import { LoadableButton } from "./LoadableButton";
 import { Link } from "react-router-dom";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "./ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
 
 export default function ProductCartDialog() {
-  const { setIsOpen, isOpen, cartProducts, removeProductFromCart, setQuantity } =
-    useShoppingCart();
+  const {
+    setIsOpen,
+    isOpen,
+    cartProducts,
+    removeProductFromCart,
+    setQuantity,
+  } = useShoppingCart();
   const [isLoading, setIsLoading] = useState(false);
 
   const proceedCheckout = useMutation({
     mutationFn: async (cartProducts: Product[]) => {
       setIsLoading(true);
-      const requestData = cartProducts.map(({ _id , quantity}) => ({
+      const requestData = cartProducts.map(({ _id, quantity }) => ({
         product_id: _id,
         quantity,
       }));
@@ -126,10 +139,17 @@ export default function ProductCartDialog() {
                               </p>
                             </div>
                             <p className="row-span-2 row-end-2 font-medium sm:order-1 sm:ml-6 sm:w-1/3 sm:flex-none sm:text-right">
-                              {formatPriceForints(product.price*product.quantity!)}
+                              {formatPriceForints(
+                                product.price * product.quantity!
+                              )}
                             </p>
                             <div className="flex items-center sm:block sm:flex-none sm:text-center">
-                              <Select defaultValue={product.quantity?.toString()} onValueChange={(value) => setQuantity(product._id,parseInt(value))}>
+                              <Select
+                                defaultValue={product.quantity?.toString()}
+                                onValueChange={(value) =>
+                                  setQuantity(product._id, parseInt(value))
+                                }
+                              >
                                 <SelectTrigger className="w-[80px]">
                                   <SelectValue placeholder="Quantity" />
                                 </SelectTrigger>
@@ -137,18 +157,10 @@ export default function ProductCartDialog() {
                                   <SelectGroup>
                                     <SelectLabel>Quantity</SelectLabel>
                                     <SelectItem value="1">1</SelectItem>
-                                    <SelectItem value="2">
-                                      2
-                                    </SelectItem>
-                                    <SelectItem value="3">
-                                      3
-                                    </SelectItem>
-                                    <SelectItem value="4">
-                                      4
-                                    </SelectItem>
-                                    <SelectItem value="5">
-                                      5
-                                    </SelectItem>
+                                    <SelectItem value="2">2</SelectItem>
+                                    <SelectItem value="3">3</SelectItem>
+                                    <SelectItem value="4">4</SelectItem>
+                                    <SelectItem value="5">5</SelectItem>
                                   </SelectGroup>
                                 </SelectContent>
                               </Select>
@@ -199,18 +211,20 @@ export default function ProductCartDialog() {
                     </div>
                   </section>
 
-                  <div className="mt-8 flex justify-end px-4 sm:px-6 lg:px-8">
-                    <LoadableButton
-                      loading={isLoading}
-                      className=""
-                      onClick={() => proceedCheckout.mutate(cartProducts)}
-                    >
-                      Continue to payment with{" "}
-                      <span className="font-bold bg-gradient-to-r from-blue-400 via-blue-800 to-orange-700 inline-block text-transparent bg-clip-text">
-                        Stripe
-                      </span>
-                    </LoadableButton>
-                  </div>
+                  {cartProducts.length > 0 && (
+                    <div className="mt-8 flex justify-end px-4 sm:px-6 lg:px-8">
+                      <LoadableButton
+                        loading={isLoading}
+                        className=""
+                        onClick={() => proceedCheckout.mutate(cartProducts)}
+                      >
+                        Continue to payment with{" "}
+                        <span className="font-bold bg-gradient-to-r from-blue-400 via-blue-800 to-orange-700 inline-block text-transparent bg-clip-text">
+                          Stripe
+                        </span>
+                      </LoadableButton>
+                    </div>
+                  )}
                 </form>
               </Dialog.Panel>
             </Transition.Child>

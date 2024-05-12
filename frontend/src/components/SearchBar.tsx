@@ -36,8 +36,6 @@ const SearchBar = () => {
     enabled: debouncedSearchInput.length >= 3,
   });
 
-  console.log(filteredItems);
-
   const handleOnChange = (input: string) => {
     setQuery(input);
   };

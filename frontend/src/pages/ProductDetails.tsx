@@ -1,7 +1,7 @@
 import { Product } from "../lib/types";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { convertDate, API_URL } from "@/lib/utils";
+import { convertDate, API_URL, formatPriceForints } from "@/lib/utils";
 import { CheckIcon, StarIcon } from "@heroicons/react/20/solid";
 import { ShieldCheckIcon } from "@heroicons/react/24/outline";
 import AddToCartButton from "@/components/AddToCartButton";
@@ -55,7 +55,7 @@ const ProductDetails = () => {
             </h2>
 
             <div className="flex items-center">
-              <p className="text-lg text-foreground sm:text-xl">{price}</p>
+              <p className="text-lg text-foreground sm:text-xl">{formatPriceForints(price)}</p>
 
               <div className="ml-4 border-l border-gray-300 pl-4">
                 <h2 className="sr-only">Reviews</h2>
@@ -128,7 +128,7 @@ const ProductDetails = () => {
                   aria-hidden="true"
                 />
                 <span className="hover:text-foreground/80">
-                  Lifetime Guarantee
+                  Guaranteed quality!
                 </span>
               </a>
             </div>
