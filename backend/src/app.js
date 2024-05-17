@@ -37,6 +37,7 @@ app.post(
 app.use(express.json());
 app.use(cors());
 
+
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
@@ -47,6 +48,9 @@ app.use((req, res, next) => {
 });
 
 //ROUTES
+app.get('/', (req, res) => {
+  res.send('Hello! Welcome to LetsGo API.');
+});
 app.use("/products", productsRouter);
 app.use("/users", usersRouter);
 app.use("/orders", ordersRouter);
