@@ -12,7 +12,7 @@ const RecentSales = () => {
     queryKey: ["recentOrders"],
     queryFn: async () => {
       const token = localStorage.getItem("accesToken");
-      const response = await fetch(API_URL + "/orders/?limit=5", {
+      const response = await fetch(API_URL + "/orders", {
         method: "GET",
         headers: {
           Authorization: token ? `Bearer ${token}` : "",
@@ -21,7 +21,8 @@ const RecentSales = () => {
       });
 
       const data = await response.json();
-      return data;
+      //last 5
+      return data.splice(-5).reverse();
     },
   });
 
