@@ -1,8 +1,8 @@
-# Project Name
+# LetsGo
 
 ## Description
 
-This project is aimed at providing a seamless integration between our API, frontend, and documentation to facilitate easy access and understanding for developers and users.
+This project is aimed at providing a seamless integration between our API, and documentation to facilitate easy access and understanding for developers and users.
 
 ## Links
 
@@ -12,7 +12,7 @@ This project is aimed at providing a seamless integration between our API, front
 
 ## Usage
 
-To use the API, simply make requests to the provided endpoint. The frontend link will take you to the user interface where you can interact with the system. For detailed information on how to utilize the API and frontend, refer to our documentation.
+To use the API, simply make requests to the provided endpoints. The frontend link will take you to the user interface where you can interact with the system. For detailed information on how to utilize the API refer to our documentation.
 
 ## Documentation
 

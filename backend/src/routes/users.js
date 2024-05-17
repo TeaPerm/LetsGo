@@ -6,10 +6,16 @@ import { validateLoginData, validateRegisterData } from "../middleware/userMiddl
 
 const usersRouter = express.Router();
 
-
+//GET USER INFO
 usersRouter.get("/", verifyToken, userController.getUser);
+
+//REGISTER USER
 usersRouter.post("/register", validateRegisterData, userController.register);
+
+//LOGIN USER
 usersRouter.post("/login", validateLoginData, userController.login);
+
+//GET USER ORDERS
 usersRouter.get("/orders", verifyToken,  orderController.getUserOrder);
 
 

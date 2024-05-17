@@ -16,6 +16,8 @@ import {
 } from "./middleware/stripeMiddleware.js";
 import analyticsRouter from "./routes/analytics.js";
 
+
+//SETUP
 dotenv.config();
 const PORT = process.env.PORT || 3000;
 
@@ -37,7 +39,7 @@ app.post(
 app.use(express.json());
 app.use(cors());
 
-
+//CORS
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(

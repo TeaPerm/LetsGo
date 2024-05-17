@@ -5,9 +5,16 @@ import { parseOrderLines, validateOrderId, validateProductIds  } from "../middle
 
 const ordersRouter = express.Router();
 
+//GET ALL ORDERS
 ordersRouter.get("/", verifyToken, verifyAdmin, orderController.getOrders);
+
+// CREATE CHECKOUT LINK
 ordersRouter.post("/checkout", verifyToken, parseOrderLines, validateProductIds, orderController.checkout);
+
+//GET ORDER
 ordersRouter.get("/:orderId", verifyToken, validateOrderId, verifyUserAndOrder, orderController.getOrder);
+
+//DELETE ORDER
 ordersRouter.delete("/:orderId", verifyToken, validateOrderId, verifyUserAndOrder, orderController.deleteOrder);
 
 export default ordersRouter;
